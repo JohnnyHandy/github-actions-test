@@ -5,11 +5,26 @@ on:
   #   - cron: "0/5 * * * *"
   #   - cron: "0/6 * * * *"
 
-  # push:
-  pull_request:
-    types: [closed, assigned, opened, reopened]
-  repository_dispatch:
-    types: [build]
+  push:
+    # branches-ignore:
+    #   - ""
+    branches:
+      - master
+      - 'feature/*' #matches feature/featA, feature/featB,
+      # doesnt match feature/feat/a
+      - '/feature/**'
+      - '!feature/featC'
+    tags:
+      - v1.*
+    # paths-ignore:
+    #   - ""
+    paths:
+      - '**.js'
+      - '!filename.js'
+  # pull_request:
+  #   types: [closed, assigned, opened, reopened]
+  # repository_dispatch:
+  #   types: [build]
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
